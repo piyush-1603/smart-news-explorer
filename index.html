@@ -1,16 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsBoard — Smart News Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1 class="heading">Smart News Explorer</h1>
-    <h3>Latest Apple News</h3>
-    
-    <div class="news-container"></div> 
-    <script src="script.js"></script>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <span class="logo">NEWS<span class="logo-accent">BOARD</span></span>
+      <span class="nav-tag" id="article-count">— 0 articles</span>
+    </div>
+    <div class="nav-right">
+      <span class="saved-count" id="saved-badge">★ <span id="saved-num">0</span> saved</span>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <span id="theme-icon">☀</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SEARCH -->
+  <header class="hero">
+    <h1 class="hero-title">Smart News<br /><span class="hero-accent">Explorer</span></h1>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search headlines, topics, sources..." />
+      <span class="search-clear" id="searchClear">✕</span>
+    </div>
+  </header>
+
+  <!-- CONTROLS -->
+  <section class="controls">
+    <div class="filter-group">
+      <span class="control-label">Category</span>
+      <div class="chips" id="categoryChips">
+        <button class="chip active" data-category="">All</button>
+        <button class="chip" data-category="technology">Tech</button>
+        <button class="chip" data-category="business">Business</button>
+        <button class="chip" data-category="science">Science</button>
+        <button class="chip" data-category="health">Health</button>
+      </div>
+    </div>
+    <div class="sort-group"> 
+      <span class="control-label">Sort</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="title">A → Z</option>
+      </select>
+    </div>
+    <div class="view-group">
+      <button class="view-btn active" id="gridView" title="Grid view">▦</button>
+      <button class="view-btn" id="listView" title="List view">☰</button>
+    </div>
+  </section>
+
+
+  <!-- LOADING -->
+  <div class="loader" id="loader">
+    <div class="loader-grid">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-state" id="errorState" style="display:none">
+    <p class="error-icon">⚠</p>
+    <p class="error-msg">Could not load news. Check your API key or network.</p>
+    <button class="retry-btn" id="retryBtn">Retry</button>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-state" id="emptyState" style="display:none">
+    <p class="empty-icon">◎</p>
+    <p>No articles match your search.</p>
+  </div>
+
+  <!-- NEWS GRID -->
+  <main class="news-grid" id="newsGrid"></main>
+
+  <!-- PAGINATION -->
+  <div class="pagination" id="pagination"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
